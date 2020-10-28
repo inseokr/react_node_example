@@ -1,1 +1,1 @@
-export const BASE_API_URL = 'http://inseo-react-node.herokuapp.com:8000';
+export const BASE_API_URL = 'https://inseo-react-node.herokuapp.com:8000';
