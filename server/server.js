@@ -2,13 +2,23 @@ const path = require('path');
 const axios = require('axios');
 const cors = require('cors');
 const express = require('express');
+const fs = require('fs');
+const https = require('https');
 const app = express();
-
 const PORT = 8000;
+const HTTPS_PORT = 3443;
+
+const httpsOptions = {
+  cert: fs.readFileSync(path.join(__dirname, 'ssl', 'server.crt')),
+   key: fs.readFileSync(path.join(__dirname, 'ssl', 'key.pem'))
+}
 
 const buildPath = path.join(__dirname, '..', 'build');
 app.use(express.static(buildPath));
 app.use(cors());
+
+
+var httpServer = https.createServer(httpsOptions, app);
 
 app.get('/jobs', async (req, res) => {
   try {
@@ -35,3 +45,8 @@ app.get('/jobs', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`server started on port ${PORT}`);
 });
+
+httpServer
+  .listen(HTTPS_PORT, () => {
+    console.log(`HTTPS server started on port ${HTTPS_PORT}`);
+  });
