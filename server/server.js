@@ -5,6 +5,7 @@ const express = require('express');
 const fs = require('fs');
 const https = require('https');
 const app = express();
+const IP = process.env.IP;
 const PORT = 8000;
 const HTTPS_PORT = 3443;
 
@@ -43,7 +44,7 @@ app.get('/jobs', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`server started on port ${PORT}`);
+  console.log(`server started on ${IP}:${PORT}`);
 });
 
 httpServer
