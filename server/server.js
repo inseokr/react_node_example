@@ -54,6 +54,6 @@ httpServer
   });
   */
 express()
-  .use(express.static(path.join(__dirname, 'public')))
+  .use(express.static(path.join(__dirname, '..', 'build')))
   .get('/', (req, res) => res.send('Hello From test Webserver'))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
