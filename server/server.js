@@ -56,5 +56,21 @@ httpServer
 express()
   .use(express.static(path.join(__dirname, '..', 'build')))
   .get('/', (req, res) => res.send('Hello From test Webserver'))
-  .get('/jobs', (req, res) => res.send('Got Job Request'))
+  .get('/jobs', (req, res) => try {
+    console.log("Got Job search request");
+    let { description = '', full_time, location = '', page = 1 } = req.query;
+
+    description = description ? encodeURIComponent(description) : '';
+    location = location ? encodeURIComponent(location) : '';
+    full_time = full_time === 'true' ? '&full_time=true' : '';
+    if (page) {
+      page = parseInt(page);
+      page = isNaN(page) ? '' : `&page=${page}`;
+    }
+    const query = `https://jobs.github.com/positions.json?description=${description}&location=${location}${full_time}${page}`;
+    const result = await axios.get(query);
+    res.send(result.data);
+  } catch (error) {
+    res.status(400).send('Error while getting list of jobs.Try again later.');
+  })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
