@@ -6,7 +6,7 @@ const fs = require('fs');
 const https = require('https');
 const app = express();
 const IP = process.env.IP;
-const PORT = 8000;
+const PORT = process.env.PORT || 5000
 const HTTPS_PORT = 3443;
 
 /*
@@ -53,10 +53,7 @@ httpServer
     console.log(`HTTPS server started on port ${HTTPS_PORT}`);
   });
   */
-
-const buildPath = path.join(__dirname, '..', 'build');
-app.use(express.static(buildPath));
-app.get('/', (req, res) => res.send('Hello From Test Webserver'));
-
-app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
-
+express()
+  .use(express.static(path.join(__dirname, 'public')))
+  .get('/', (req, res) => res.send('Hello From test Webserver'))
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
