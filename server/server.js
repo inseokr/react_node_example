@@ -56,4 +56,5 @@ httpServer
 express()
   .use(express.static(path.join(__dirname, '..', 'build')))
   .get('/', (req, res) => res.send('Hello From test Webserver'))
+  .get('/jobs', (req, res) => res.send('Got Job Request'))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
