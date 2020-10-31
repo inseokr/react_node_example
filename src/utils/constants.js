@@ -1,3 +1,1 @@
-var IP = process.env.IP;
-
-export const BASE_API_URL = `https://justin-linkedspaces.herokuapp.com`;
+export const BASE_API_URL = 'http://localhost:5000';
