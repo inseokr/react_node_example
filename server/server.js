@@ -56,7 +56,7 @@ httpServer
 express()
   .use(express.static(path.join(__dirname, '..', 'build')))
   .get('/', (req, res) => res.send('Hello From test Webserver'))
-  .get('/jobs', (req, res) => try {
+  .get('/jobs', async (req, res) => { try {
     console.log("Got Job search request");
     let { description = '', full_time, location = '', page = 1 } = req.query;
 
@@ -72,5 +72,5 @@ express()
     res.send(result.data);
   } catch (error) {
     res.status(400).send('Error while getting list of jobs.Try again later.');
-  })
+  }})
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
