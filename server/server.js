@@ -9,6 +9,7 @@ const IP = process.env.IP;
 const PORT = 8000;
 const HTTPS_PORT = 3443;
 
+/*
 const httpsOptions = {
   cert: fs.readFileSync(path.join(__dirname, 'ssl', 'server.crt')),
    key: fs.readFileSync(path.join(__dirname, 'ssl', 'key.pem'))
@@ -51,3 +52,11 @@ httpServer
   .listen(HTTPS_PORT, () => {
     console.log(`HTTPS server started on port ${HTTPS_PORT}`);
   });
+  */
+
+const buildPath = path.join(__dirname, '..', 'build');
+app.use(express.static(buildPath));
+app.get('/', (req, res) => res.send('Hello From Test Webserver'));
+
+app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
