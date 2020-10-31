@@ -54,7 +54,6 @@ httpServer
   });
   */
 express()
-  .use(express.static(path.join(__dirname, '..', 'build')))
   .get('/', (req, res) => res.send('Hello From test Webserver'))
   .get('/jobs', async (req, res) => { try {
     console.log("Got Job search request");
